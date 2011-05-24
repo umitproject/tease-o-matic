@@ -1,0 +1,19 @@
+<h1>Subscribe for news</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+{% if not success %}
+
+<form action="/subscription/add/" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <br />
+
+<input type="submit" value="Subscribe" />
+</form>
+
+{% else %}
+
+    Subscription done
+
+{% endif %}
