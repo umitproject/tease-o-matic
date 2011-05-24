@@ -15,6 +15,7 @@
         <option name="rootFolder" value="$MODULE_DIR$" />
         <option name="sdkFolder" value="" />
         <option name="templatesFolder" value="$MODULE_DIR$/templates" />
+        <option name="gp" value="" />
       </configuration>
     </facet>
   </component>
