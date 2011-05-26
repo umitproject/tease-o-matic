@@ -1,4 +1,5 @@
 from django.contrib.sitemaps import Sitemap
+from django.conf import settings
 from django.db import models
 
 class BaseContent(models.Model):
@@ -49,6 +50,10 @@ class Page(BaseContent):
         return u"%s -- %s" % (self.url, self.title)
 
     def get_absolute_url(self):
+        if not self.url.endswith('/') and settings.APPEND_SLASH:
+            self.url = "%s/" % self.url
+        if not self.url.startswith('/'):
+            self.url = "/" + self.url
         return self.url
 
 class Block(models.Model):

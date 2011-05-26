@@ -15,7 +15,15 @@ AUTOLOAD_SITECONF = 'indexes'
 SITE_NAME = 'ICM'
 SITE_DESCRIPTION = ''
 SITE_COPYRIGHT = ''
-GOOGLE_ANALYTICS_ID = ''
+GOOGLE_ANALYTICS_MODEL = True
+
+ROOT_URLCONF = 'urls'
+SITE_ID = 30
+
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+
+APPEND_SLASH = True
 
 
 SECRET_KEY = '=r-$b*8hglm+858&9t043hlm6-&6-3d3vfc4((7yd0dbrakhvi'
@@ -34,6 +42,7 @@ INSTALLED_APPS = (
     'simplesocial',
     'subscriptions',
     'django.contrib.admin',
+    'google_analytics',
     'minicms',
 
     # djangoappengine should come last, so it can override a few manage.py commands
@@ -48,7 +57,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    #'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'urlrouter.middleware.URLRouterFallbackMiddleware',
 )
 
@@ -66,19 +75,8 @@ TEST_RUNNER = 'djangotoolbox.test.CapturingTestSuiteRunner'
 ADMIN_MEDIA_PREFIX = '/media/admin/'
 TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), 'templates'),)
 
-ROOT_URLCONF = 'urls'
-
-SITE_ID = 30
-
 URL_ROUTE_HANDLERS = (
     'minicms.urlroutes.PageRoutes',
-)
-
-MEDIA_BUNDLES = (
-    ('main.css',
-        'design.sass',
-        'rest.css',
-    ),
 )
 
 ROOT_MEDIA_FILTERS = {

@@ -1,5 +1,4 @@
 from django.conf.urls.defaults import *
-from minicms.models import PagesSitemap
 
 handler500 = 'djangotoolbox.errorviews.server_error'
 
@@ -7,11 +6,9 @@ handler500 = 'djangotoolbox.errorviews.server_error'
 from django.contrib import admin
 admin.autodiscover()
 
-sitemaps = {
-    'pages': PagesSitemap,
-}
 
 urlpatterns = patterns('',
+    (r'^subscription/', include('subscriptions.urls')),
     ('^_ah/warmup$', 'djangoappengine.views.warmup'),
     (r'^admin/', include(admin.site.urls)),
     #(r'^page/$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),

@@ -1,11 +1,11 @@
 from django import template
 from django.db import models
-
 from django.template import Context, loader
+from google_analytics.models import Analytics
 
 
 register = template.Library()
-Analytics = models.get_model('googleanalytics', 'analytics')
+Analytics = models.get_model('google_analytics', 'analytics')
 
 def do_get_analytics(parser, token):
     try:
@@ -13,10 +13,12 @@ def do_get_analytics(parser, token):
         tag_name, code = token.split_contents()
     except ValueError:
         code = None
-   
-    if not (code[0] == code[-1] and code[0] in ('"', "'")):
-        raise template.TemplateSyntaxError, "%r tag's argument should be in quotes" % tag_name
-    code = code[1:-1]
+
+    if code:
+        if not (code[0] == code[-1] and code[0] in ('"', "'")):
+            raise template.TemplateSyntaxError, "%r tag's argument should be in quotes" % tag_name
+        code = code[1:-1]
+
     current_site = None
     return AnalyticsNode(current_site, code)
     
@@ -33,10 +35,8 @@ class AnalyticsNode(template.Node):
                 code = code_set[0].analytics_code
             else:
                 return ''
-        elif self.code:
-            code = self.code
         else:
-            return ''
+            code = Analytics.objects.all()[0].analytics_code
         
         if code.strip() != '':
             t = loader.get_template('google_analytics/analytics_template.html')
