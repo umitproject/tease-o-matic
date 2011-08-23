@@ -1,3 +1,24 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+##
+## Author: Adriano Monteiro Marques <adriano@umitproject.org>
+##
+## Copyright (C) 2011 S2S Network Consultoria e Tecnologia da Informacao LTDA
+##
+## This program is free software: you can redistribute it and/or modify
+## it under the terms of the GNU Affero General Public License as
+## published by the Free Software Foundation, either version 3 of the
+## License, or (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU Affero General Public License for more details.
+##
+## You should have received a copy of the GNU Affero General Public License
+## along with this program.  If not, see <http://www.gnu.org/licenses/>.
+##
+
 from django.conf.urls.defaults import *
 
 handler500 = 'djangotoolbox.errorviews.server_error'
@@ -8,9 +29,7 @@ admin.autodiscover()
 
 
 urlpatterns = patterns('',
-    (r'', include('subscriptions.urls')),
+    (r'^subscription/', include('subscriptions.urls')),
     ('^_ah/warmup$', 'djangoappengine.views.warmup'),
     (r'^admin/', include(admin.site.urls)),
-    #(r'^page/$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
-    #('^$', 'django.views.generic.simple.direct_to_template', {'template': 'home.html'}),
 )
