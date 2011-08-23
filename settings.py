@@ -18,7 +18,7 @@ SITE_COPYRIGHT = ''
 GOOGLE_ANALYTICS_MODEL = True
 
 ROOT_URLCONF = 'urls'
-SITE_ID = 31
+SITE_ID = 1
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -33,7 +33,7 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.auth',
     'django.contrib.sessions',
-    'django.contrib.sites',
+    #'django.contrib.sites',
     #'django.contrib.flatpages',
     'djangotoolbox',
     'autoload',

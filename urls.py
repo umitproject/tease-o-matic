@@ -8,7 +8,7 @@ admin.autodiscover()
 
 
 urlpatterns = patterns('',
-    (r'^subscription/', include('subscriptions.urls')),
+    (r'', include('subscriptions.urls')),
     ('^_ah/warmup$', 'djangoappengine.views.warmup'),
     (r'^admin/', include(admin.site.urls)),
     #(r'^page/$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
