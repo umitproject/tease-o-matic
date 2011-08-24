@@ -19,11 +19,13 @@
 ## along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-from subscriptions.models import Subscription
-from subscriptions.forms import SubscribeForm, UnsubscribeForm
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, render_to_string, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+
+from subscriptions.models import Subscription
+from subscriptions.forms import SubscribeForm, UnsubscribeForm
+from subscriptions.utils import send_mail
 
 def index(request):
     if 'success' in request.GET and request.GET['success']=='1':
@@ -35,6 +37,7 @@ def index(request):
         'form': form, 'success': success,
     })
 
+sender, to, cc='', bcc='', reply_to='', subject='', body='', html='', attachments=[], headers={}
 
 def add(request):
     if request.method == 'POST':
@@ -52,9 +55,13 @@ def add(request):
 
             else:
 
-                sub = Subscription(email=email)
+                sub = Subscription()
+                sub.email = email
                 sub.originating_ip = request.META['REMOTE_ADDR']
                 sub.save()
+                
+                # Send email confirming and providing user with links to unsubscribe.
+                send_subscribe_email(sub.email)
 
                 # Always return an HttpResponseRedirect after successfully dealing
                 # with POST data. This prevents data from being posted twice if a

@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 ##
 ## Author: Adriano Monteiro Marques <adriano@umitproject.org>
 ##
@@ -19,8 +18,17 @@
 ## along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-from subscriptions.models import Subscription, SubscriptionEmail
-from django.contrib import admin
+import logging
 
-admin.site.register(Subscription)
-admin.site.register(SubscriptionEmail)
+from django.conf import settings
+from subscription.models import SubscriptionEmail
+
+def config(request):
+    subscription_email = SubscriptionEmail.objects.all()
+    if subscription_email:
+        subscription_email = subscription_email[0]
+    else:
+        subscription_email = "Hey thanks for subscribing! We'll keep you posted!"
+    
+    return {'TEASE_SITE_URL': settings.TEASE_SITE_URL,
+            'SUBSCRIPTION_MESSAGE': subscription_email.message }

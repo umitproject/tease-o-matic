@@ -21,6 +21,14 @@
 
 from django.db import models
 
+class SubscriptionEmail(models.Model):
+    """This is the entity that will hold the subscription message
+    that is sent by email to all subscribers.
+    """
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    message = models.TextField()
+
 class Subscription(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -1,0 +1,6 @@
+{{ SUBSCRIPTION_MESSAGE }}
+
+----
+
+If you really want to unsubscribe, and break our hearts in the process, click the following link:
+http://{{ TEASE_SITE_URL }}/subscription/remove?email={{ subscription.email }}&id={{ subscription.pk }}

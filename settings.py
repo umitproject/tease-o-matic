@@ -44,6 +44,27 @@ SITE_ID = 1
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+ENVIRONMENT = os.environ.get('SERVER_SOFTWARE', '')
+GAE = True
+PRODUCTION = True
+TEST = False
+
+if ENVIRONMENT == '':
+    # TODO: Figure how to check if running on prod in other environments
+    GAE = False
+elif ENVIRONMENT.startswith('Development'):
+    PRODUCTION = False
+elif ENVIRONMENT.startswith('GAETest'):
+    TEST = True
+
+EMAIL_SENDING_ACCOUNT = ""
+EMAIL_REPLY_TO = ""
+EMAIL_HOST = ""
+EMAIL_HOST_PASSWORD = ""
+EMAIL_HOST_USER = ""
+EMAIL_PORT = 25
+EMAIL_USE_TLS = True
+
 APPEND_SLASH = True
 
 
@@ -86,6 +107,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.request',
     'django.core.context_processors.media',
+    'subscriptions.context_processors.config',
 )
 
 # This test runner captures stdout and associates tracebacks with their
