@@ -21,14 +21,15 @@
 import logging
 
 from django.conf import settings
-from subscription.models import SubscriptionEmail
+from subscriptions.models import SubscriptionEmail
 
 def config(request):
     subscription_email = SubscriptionEmail.objects.all()
+    
+    message = "Hey thanks for subscribing! We'll keep you posted!"
     if subscription_email:
-        subscription_email = subscription_email[0]
-    else:
-        subscription_email = "Hey thanks for subscribing! We'll keep you posted!"
+        message = subscription_email[0].message
     
     return {'TEASE_SITE_URL': settings.TEASE_SITE_URL,
-            'SUBSCRIPTION_MESSAGE': subscription_email.message }
+            'SUBSCRIPTION_MESSAGE': message,
+            'SITE_NAME': settings.SITE_NAME }

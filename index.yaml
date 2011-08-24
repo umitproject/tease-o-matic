@@ -30,3 +30,8 @@ indexes:
   properties:
   - name: __key__
     direction: desc
+
+- kind: subscriptions_subscriptionemail
+  properties:
+  - name: __key__
+    direction: desc
