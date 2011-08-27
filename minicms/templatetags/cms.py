@@ -1,7 +1,13 @@
 from ..models import Block
-from django.template import Library
+from django.template import Library, Template
 
 register = Library()
+
+@register.simple_tag(takes_context=True)
+def show_page_content(context, page):
+    t = Template(page.pre_rendered_content)
+    return t.render(context)
+show_page_content.is_safe = True
 
 @register.simple_tag
 def show_block(name):
