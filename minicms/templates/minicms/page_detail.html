@@ -16,7 +16,7 @@
 {% endwith %}
 {% endif %}
 
-{{ page.rendered_content }}
+{% show_page_content page %}
 
 {% if page.show_share_buttons %}
 {% with page.title as title %}
